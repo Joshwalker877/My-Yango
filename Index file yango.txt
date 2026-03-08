@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YourYango - Book Now</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; }
+    .yango-red { color: #F50101; }
+    .hero-map { height: 420px; }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Header (exactly like Yango) -->
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-[#F50101] rounded-full flex items-center justify-center text-white font-black text-3xl">Y</div>
+        <span class="text-3xl font-black tracking-tighter yango-red">YOURYANGO</span>
+      </div>
+      <nav class="hidden md:flex gap-8 text-lg">
+        <a href="#" class="hover:text-[#F50101]">Rides</a>
+        <a href="#" class="hover:text-[#F50101]">Delivery</a>
+        <a href="#" class="hover:text-[#F50101]">Business</a>
+      </nav>
+      <button onclick="bookNow()" class="bg-[#F50101] text-white px-8 py-3 rounded-full font-semibold hover:bg-red-700">Book Now</button>
+    </div>
+  </header>
+
+  <!-- Hero + Map + Booking Form (Yango style) -->
+  <section class="relative">
+    <div id="map" class="hero-map w-full"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-2xl rounded-3xl p-8 max-w-md w-full mx-4">
+      <h1 class="text-4xl font-black mb-2">Where are you going?</h1>
+      <p class="text-gray-600 mb-8">Fast rides & delivery in minutes</p>
+      
+      <div class="space-y-6">
+        <div>
+          <label class="text-sm font-medium text-gray-500">PICKUP</label>
+          <input id="pickup" type="text" placeholder="Current location" class="w-full mt-1 p-4 border rounded-2xl text-lg">
+        </div>
+        <div>
+          <label class="text-sm font-medium text-gray-500">DROPOFF</label>
+          <input id="dropoff" type="text" placeholder="Where to?" class="w-full mt-1 p-4 border rounded-2xl text-lg">
+        </div>
+        
+        <!-- Service types (just like Yango) -->
+        <div class="grid grid-cols-3 gap-4">
+          <button onclick="selectService(this)" class="service-btn border-2 border-gray-300 hover:border-[#F50101] rounded-2xl p-4 text-center active:scale-95">
+            <div class="text-4xl mb-1">🛵</div>
+            <div class="font-semibold">Bike</div>
+          </button>
+          <button onclick="selectService(this)" class="service-btn border-2 border-gray-300 hover:border-[#F50101] rounded-2xl p-4 text-center active:scale-95">
+            <div class="text-4xl mb-1">🚗</div>
+            <div class="font-semibold">Car</div>
+          </button>
+          <button onclick="selectService(this)" class="service-btn border-2 border-[#F50101] bg-red-50 rounded-2xl p-4 text-center active:scale-95">
+            <div class="text-4xl mb-1">📦</div>
+            <div class="font-semibold">Delivery</div>
+          </button>
+        </div>
+        
+        <button onclick="submitBooking()" 
+                class="w-full bg-[#F50101] hover:bg-red-700 text-white font-bold text-xl py-6 rounded-3xl shadow-lg">
+          SEE PRICES & BOOK
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Simple footer -->
+  <footer class="bg-gray-900 text-white py-12 text-center">
+    <p class="text-2xl font-black yango-red mb-2">YOURYANGO</p>
+    <p class="text-sm opacity-60">© 2026 Your Company • Fast, reliable, yours</p>
+  </footer>
+
+  <script>
+    // Fake map (Lahore/Karachi/Abuja style)
+    const map = L.map('map').setView([31.5204, 74.3587], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    function selectService(btn) {
+      document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('border-[#F50101]', 'bg-red-50'));
+      btn.classList.add('border-[#F50101]', 'bg-red-50');
+    }
+
+    function submitBooking() {
+      const pickup = document.getElementById('pickup').value || "Your location";
+      const dropoff = document.getElementById('dropoff').value || "Destination";
+      alert(`✅ Booking received!\nFrom: ${pickup}\nTo: ${dropoff}\n\nWe'll contact you on WhatsApp in seconds (just like Yango)`);
+      // You can later connect this to WhatsApp, email, or Google Sheets
+    }
+
+    function bookNow() {
+      document.getElementById('dropoff').focus();
+    }
+  </script>
+</body>
+</html>
